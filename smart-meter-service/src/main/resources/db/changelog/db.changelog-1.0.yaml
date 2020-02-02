@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: martin-mccann
+      comment: Create SMART_METER_READING table
+      changes:
+        - createTable:
+            tableName: SMART_METER_READING
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ACCOUNT_NUMBER
+                  type: varchar(9)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: GAS_ID
+                  type: varchar(9)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: GAS_SMART_READ
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ELEC_ID
+                  type: varchar(9)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ELEC_SMART_READ
+                  type: number
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: martin-mccann
+      comment: Add test data to SMART_METER_READING
+      changes:
+        - loadData:
+            tableName: SMART_METER_READING
+            file: loadData/smart-read-test-data.csv
+            relativeToChangelogFile: true
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+              - column:
+                  name: ACCOUNT_NUMBER
+                  type: STRING
+              - column:
+                  name: GAS_ID
+                  type: STRING
+              - column:
+                  name: GAS_SMART_READ
+                  type: NUMERIC
+              - column:
+                  name: ELEC_ID
+                  type: STRING
+              - column:
+                  name: ELEC_SMART_READ
+                  type: NUMERIC
